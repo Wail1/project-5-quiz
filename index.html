@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Udacity</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+
+  		<div class="question">
+  			<span>QUIZ QUESTION</span>
+  			<p> Which of these is a good variable name? </p>
+  		</div>
+
+  		<div class="answers">
+
+  			<ul id="list">
+  				<li>
+  					<label for="option1">
+  					<input type="radio" value="1" id="option1" name="options">
+  					var firstName
+  					</label>
+  				</li>
+  				<li>
+  					<label for="option2">
+  					<input type="radio" value="2" id="option2" name="options">
+  					var const
+  					</label>
+  				</li>
+  				<li>
+  					<label for="option3">
+  					<input type="radio" value="3" id="option3" name="options">
+  					var 1stName
+  					</label>
+  				</li>
+  				<li>
+  					<label for="option4">
+  					<input type="radio" value="4" id="option4" name="options">
+  					var $first Name
+  					</label>
+  				</li>
+  			</ul>
+  		</div>
+
+  	</div>
+
+  	<button class="submit" id="submit-disabled" disabled>submit</button>
+
+    <div id="overlay">
+	    <div class="modal-content">
+		     <div id="modal-elements">Thanks for completing that!</div>
+	    </div>
+    </div>
+
+
+
+    <script>
+
+    	var button = document.querySelector(".submit");
+      var ul = document.getElementById('list');
+
+      ul.addEventListener('click',function(){
+        // في حال تم الضغط على القائمة الأوامر التي هنا ستطبق
+         button.disabled = false; /*الغاء خاصية عدم تفعيل الزر*/
+         button.setAttribute('id', 'submit-enabled');  /*id تغيير الـ */
+	    });
+
+      var options = document.querySelectorAll("input[type=radio]");
+      var li = document.getElementsByTagName("li");
+      var modal = document.getElementById("overlay");
+      var modaElements = document.getElementById('modal-elements');
+      var correctAnswer = 0;
+
+      button.addEventListener('click',function(){
+        // في حال تم الضغط على الزرالأوامر التي هنا ستطبق
+        if( options[correctAnswer].checked == true ){
+            // قم بإضافة التنسيق الخاص بالإجابة الصحيحة للعنصر
+            li[correctAnswer].classList.add("correct");
+           // قم بفتح النافذة المنبثقة الخاصة بالجواب الصحيح
+            modaElements.style.background = "url(https://classroom.udacity.com/images/correct-illustration-ceea2.svg) no-repeat center top";
+            modaElements.style.color = "#02ccba";
+            modaElements.textContent= "Thanks for completing that!";
+            modal.style.display = "block";
+         }else{
+           // قم بفتح النافذة المنبثقة الخاصة بالجواب الخطأ
+            modaElements.style.background = "url(https://classroom.udacity.com/images/wrong-illustration-0df77.svg) no-repeat center top";
+            modaElements.style.color = "#f65d44";
+            modaElements.textContent= "Try Again!";
+            modal.style.display = "block";
+            li[correctAnswer].classList.remove("correct");
+
+          }
+      });
+
+      window.addEventListener('click',function(){
+        // يتم تنفيذ هذه الاوامر عند الضغط في أي مكان بالصفحة
+        if (event.target == modal) {
+        // يتم تنفيذ هذه الاوامر عند الضغط على العنصر المحدد فقط
+           modal.style.display = "none";
+         }
+
+      });
+
+    </script>
+</body>
+</html>
